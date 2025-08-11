@@ -214,10 +214,10 @@ class ConfirmService(SWMLService):
         )
         
         # Build the SWML document
-        self.build_voicemail_document()
+        self.build_confirm_document()
     
-    def build_voicemail_document(self):
-        """Build the voicemail SWML document"""
+    def build_confirm_document(self):
+        """Build the confirm SWML document"""
         # Reset the document
         self.reset_document()
         
