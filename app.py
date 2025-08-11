@@ -10,7 +10,7 @@ class LifeInsuranceAgent(AgentBase):
             name="Jackie",
             route="/agent",
             host="0.0.0.0",
-            port=8000,
+            port=3000,
             use_pom=True,
             basic_auth=("username", "password")  # Replace with your credentials
         )
@@ -204,12 +204,12 @@ class LifeInsuranceAgent(AgentBase):
         self.register_swaig_function(transfer_caller.to_swaig_function())
 
 class ConfirmService(SWMLService):
-    def __init__(self, host="0.0.0.0", port=2000):
+    def __init__(self):
         super().__init__(
             name="confirm",
             route="/confirm",
-            host=host,
-            port=port,
+            host="0.0.0.0",
+            port=2000,
             basic_auth=("username", "password")  # Replace with your credentials
         )
         
@@ -228,8 +228,7 @@ class ConfirmService(SWMLService):
         
         # Prompt the caller to accept the incoming call
         self.add_verb("prompt", {
-            "play": "say:If you wish to speak with the caller, please say the words CONNECT or YES aloud. To decline the call, feel free to hang up after this message.",
-            "speech_hints": ["connect", "yes"]
+            "play": "say:If you wish to speak with the caller, please press 1. To decline the call, feel free to hang up after this message."
         })
         
         # React to the caller’s response
@@ -244,14 +243,9 @@ class ConfirmService(SWMLService):
                 }
             ],
             "case": {
-                "connect": [
+                "1": [
                     {
                         "play": "say:You have chosen to accpet the call. Patching you through to the caller now."
-                    }
-                ],
-                "yes": [
-                    {
-                        "play": "say:You have chosen to accept the call. Patching you through to the caller now."
                     }
                 ]
             }
